@@ -1,0 +1,35 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Copy files to server
+      uses: appleboy/scp-action@v0.1.0
+      with:
+        host: YOUR_SERVER_IP
+        username: ageevweb
+        key: ${{ secrets.SSH_KEY }}
+        source: "."
+        target: "/home/ageevweb/app"
+
+    - name: SSH and Deploy
+      uses: appleboy/ssh-action@v0.1.0
+      with:
+        host: YOUR_SERVER_IP
+        username: ageevweb
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd /home/ageevweb/app
+          docker-compose down
+          docker-compose build
+          docker-compose up -d
