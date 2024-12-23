@@ -85,9 +85,13 @@ const notionList = ref<INotion[]>([])
 
 onMounted(() => getNotionList())
 
+// const getNotionList = async () => {
+//   const res = await api.getNotionList()
+//   notionList.value = res.notions
+// }
+
 const getNotionList = async () => {
-  const res = await api.getNotionList()
-  notionList.value = res.notions
+  console.log('test api')
 }
 
 </script>
