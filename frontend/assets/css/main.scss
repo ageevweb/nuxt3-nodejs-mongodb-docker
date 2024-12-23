@@ -1,0 +1,17 @@
+@use "@/assets/css/variables.scss" as *;
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 15px;
+  min-height: calc(100vh - 90px);
+  box-shadow: var(--el-box-shadow);
+  border-radius: var(--el-border-radius-base);
+}
