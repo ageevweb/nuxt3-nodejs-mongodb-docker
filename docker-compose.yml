@@ -12,7 +12,6 @@ services:
       - backend
     networks:
       - app-network
-    command: npm run build && npm run start
 
   backend:
     build:
