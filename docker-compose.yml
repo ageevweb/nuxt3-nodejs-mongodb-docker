@@ -6,26 +6,27 @@ services:
       context: ./frontend
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    command: npm run dev
+    environment:
+      NODE_ENV: production
     depends_on:
       - backend
+    networks:
+      - app-network
+    command: npm run build && npm run start
 
   backend:
     build:
       context: ./backend
     ports:
       - "4000:4000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
     environment:
+      NODE_ENV: production
       MONGO_URL: mongodb://database:27017/mydb
     depends_on:
       - database
-    command: npm run dev
+    networks:
+      - app-network
+    command: npm run start
 
   database:
     image: mongo:6.0
@@ -33,3 +34,9 @@ services:
       - "27017:27017"
     volumes:
       - ./database/data:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
