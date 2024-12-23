@@ -17,19 +17,19 @@ jobs:
       uses: appleboy/scp-action@v0.1.0
       with:
         host: 31.129.33.251
-        username: ageevweb
+        username: root
         key: ${{ secrets.SSH_KEY }}
         source: "."
-        target: "/home/ageevweb/app"
+        target: "/root/app"
 
     - name: SSH and Deploy
       uses: appleboy/ssh-action@v0.1.0
       with:
         host: 31.129.33.251
-        username: ageevweb
+        username: root
         key: ${{ secrets.SSH_KEY }}
         script: |
-          cd /home/ageevweb/app
+          cd /root/app
           docker-compose down
           docker-compose build
           docker-compose up -d
