@@ -85,15 +85,10 @@ const notionList = ref<INotion[]>([])
 
 onMounted(() => getNotionList())
 
-// const getNotionList = async () => {
-//   const res = await api.getNotionList()
-//   notionList.value = res.notions
-// }
-
 const getNotionList = async () => {
-  console.log('test api')
+  const res = await api.getNotionList()
+  notionList.value = res.notions
 }
-
 </script>
 
 <style scoped lang="scss">
