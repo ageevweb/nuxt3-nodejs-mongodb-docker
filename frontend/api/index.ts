@@ -9,7 +9,7 @@ import axios from "axios";
 import type { AxiosInstance } from "axios";
 
 const apiClient: AxiosInstance = axios.create({
-  baseURL: `http://localhost:4000/`,
+  baseURL: `https://api.ageevweb.tech`,
   headers: {},
 });
 
