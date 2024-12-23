@@ -16,7 +16,7 @@ jobs:
     - name: Copy files to server
       uses: appleboy/scp-action@v0.1.0
       with:
-        host: YOUR_SERVER_IP
+        host: 31.129.33.251
         username: ageevweb
         key: ${{ secrets.SSH_KEY }}
         source: "."
@@ -25,7 +25,7 @@ jobs:
     - name: SSH and Deploy
       uses: appleboy/ssh-action@v0.1.0
       with:
-        host: YOUR_SERVER_IP
+        host: 31.129.33.251
         username: ageevweb
         key: ${{ secrets.SSH_KEY }}
         script: |
