@@ -6,6 +6,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }, // Указываем SVG как иконку
       ],
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
     },
   },
   vite: {

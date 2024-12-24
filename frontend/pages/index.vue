@@ -70,16 +70,15 @@
 </template>
 
 <script setup lang="ts">
-import CreateNotion from '../components/CreateNotion.vue';
-import DeleteNotion from '../components/DeleteNotion.vue';
-import TodoList from '../components/TodoList.vue';
 import { ref, onMounted } from 'vue';
 import { api } from '../api'
 import type { INotion } from '../types/Notion';
+import CreateNotion from '../components/CreateNotion.vue';
+import DeleteNotion from '../components/DeleteNotion.vue';
+import TodoList from '../components/TodoList.vue';
 
-useHead({
-  title: 'ToDo | Список заметок',
-});
+
+useHead({ title: 'ToDo | Список заметок' });
 
 const notionList = ref<INotion[]>([])
 

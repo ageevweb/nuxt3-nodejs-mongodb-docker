@@ -46,43 +46,32 @@ import { useRoute, useRouter } from 'vue-router';
 import { api } from '../../api'
 import type { INotion, ITodo } from '../../types/Notion';
 
-useHead({
-  title: 'ToDo | Заметка',
-});
+useHead({ title: 'ToDo | Заметка' });
 
-const notion = ref<INotion | null>(null);
+onMounted(() => getNotion())
 
 const route = useRoute()
 const router = useRouter()
 
+const notion = ref<INotion | null>(null);
+
 const getNotion = async () => {
   const res = await api.getNotionOne(route.params.id as string)
 
-  if(res.status === "success"){
-    notion.value = res.notion
-  } else {
-    router.push('/')
-  }
+  if (res.status === "success"){ notion.value = res.notion }
+  else { router.push('/') }
 }
 
-onMounted(() => getNotion())
 
 const updatedTodoList = (todo: ITodo[]) => {
-  updateNotion({
-    title: notion.value?.title || 'Заголовок',
-    todo
-  })
+  updateNotion({ title: notion.value?.title || 'Заголовок', todo })
 }
 
 const updateNotion = async(notion: INotion) => {
   const res = await api.updateNotion(route.params.id as string, notion)
 
   if(res.status === 'success'){
-    ElNotification({
-      title: 'Успешно!',
-      message: res.message,
-      type: res.status,
-    })
+    ElNotification({ title: 'Успешно!', message: res.message, type: res.status })
     getNotion()
   }
 }
