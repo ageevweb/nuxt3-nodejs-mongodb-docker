@@ -4,10 +4,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }, // Указываем SVG как иконку
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       ],
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
+      viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
     },
   },
   vite: {

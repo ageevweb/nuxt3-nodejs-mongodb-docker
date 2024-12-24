@@ -59,7 +59,7 @@
             </template>
           </DeleteNotion>
 
-          <el-button @click="$router.push(`/notion/${notion._id}`)" type="primary">
+          <el-button type="primary" @click="$router.push(`/notion/${notion._id}`)">
             Перейти к заметке
             <el-icon class="el-icon--right"><ArrowRight /></el-icon>
           </el-button>
@@ -80,7 +80,7 @@ import TodoList from '../components/TodoList.vue';
 
 useHead({ title: 'ToDo | Список заметок' });
 
-const notionList = ref<INotion[]>([])
+const notionList = ref<INotion[]>([]  )
 
 onMounted(() => getNotionList())
 

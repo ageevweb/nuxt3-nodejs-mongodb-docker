@@ -1,6 +1,6 @@
-import apiClient from '@/api';
-import type { ICreateNotionPayload} from "./types"
 import type { IResponce } from '../types';
+import type { ICreateNotionPayload} from "./types"
+import apiClient from '@/api';
 
 export default async (payload: ICreateNotionPayload) => {
   const REQUEST_URL = `/add-notion`;

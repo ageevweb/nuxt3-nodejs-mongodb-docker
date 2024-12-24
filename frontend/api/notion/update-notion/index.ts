@@ -1,5 +1,5 @@
-import apiClient from '@/api';
 import type { IResponce } from '../types';
+import apiClient from '@/api';
 import type { INotion } from '~/types/Notion';
 
 

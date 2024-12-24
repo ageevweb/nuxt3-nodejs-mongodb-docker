@@ -37,9 +37,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ElNotification } from 'element-plus'
 import type { INotion } from '../types/Notion'
 import { api } from '../api'
-import { ElNotification } from 'element-plus'
 
 const props = defineProps<{ notion: INotion }>()
 const emit = defineEmits(['callback-after-delete'])
@@ -47,7 +47,7 @@ const emit = defineEmits(['callback-after-delete'])
 const isShowConfirmationModal = ref(false)
 
 const deleteNotion = async () => {
-  const res = await api.deleteNotion(props.notion._id as string)
+  await api.deleteNotion(props.notion._id as string)
 
   ElNotification({
     title: 'Успешно!',

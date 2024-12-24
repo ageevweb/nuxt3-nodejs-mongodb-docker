@@ -3,7 +3,6 @@
     <el-checkbox
       v-model="todo.done"
       :disabled="!handle"
-      @change="emit('change-staus-todo', todo)"
     />
 
     <div
@@ -19,8 +18,8 @@
         type="success"
         :icon="Check"
         circle
-        @click="saveNewTodoTitle"
         :disabled="!editMode.newTitle.length"
+        @click="saveNewTodoTitle"
       />
       <el-button
         type="warning"
@@ -37,8 +36,8 @@
     >{{ todo.title }}</el-text>
 
     <div
-      class="todo-item__handle-block"
       v-if="handle"
+      class="todo-item__handle-block"
     >
       <el-button
         v-if="!editMode.switched"
@@ -58,9 +57,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import type { ITodo } from '../types/Notion'
+import { reactive, watch } from 'vue'
 import { Delete, Edit, Check, Close } from '@element-plus/icons-vue';
+import type { ITodo } from '../types/Notion'
 
 const props = defineProps<{
   todo: ITodo,
@@ -72,6 +71,15 @@ const emit = defineEmits([
   'change-staus-todo',
   'change-title-todo',
 ])
+
+const todo = ref({ ...props.todo }); // Создаем локальную копию объекта
+
+watch(
+  () => todo.value.done,
+  (newValue) => {
+    emit('change-staus-todo', { ...todo.value, done: newValue });
+  }
+);
 
 const editMode = reactive({
   switched: false,

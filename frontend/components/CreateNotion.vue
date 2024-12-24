@@ -28,8 +28,8 @@
           <el-button
             type="success"
             plain
-            @click="saveNotion"
             :disabled="!form.title.length"
+            @click="saveNotion"
           >
             Сохранить
           </el-button>

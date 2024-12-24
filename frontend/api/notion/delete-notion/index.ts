@@ -1,5 +1,4 @@
 import apiClient from '@/api';
-import type { IResponce } from '../types';
 
 
 export default async (id: string) => {

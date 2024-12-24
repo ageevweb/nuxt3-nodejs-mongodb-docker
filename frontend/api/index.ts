@@ -1,3 +1,5 @@
+import axios from "axios";
+import type { AxiosInstance } from "axios";
 import {
   errorResponseHandler,
   successResponseHandler,
@@ -5,8 +7,6 @@ import {
 
 import * as notion from "./notion";
 
-import axios from "axios";
-import type { AxiosInstance } from "axios";
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: `https://api.ageevweb.tech`,

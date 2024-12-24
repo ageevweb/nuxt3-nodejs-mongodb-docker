@@ -32,7 +32,7 @@
       :todo="item"
       :handle="handle"
       @delete-todo="deleteTodo($event)"
-      @change-staus-todo="changeStausTodo($event)"
+      @change-staus-todo="changeStausTodo"
       @change-title-todo="changeTitleTodo($event)"
     />
 
@@ -50,12 +50,11 @@ const props = defineProps<{
   empty: String,
 }>()
 
-const sortedTodoByDone = computed(()=> {
-  return props.todo.sort((a, b) => {
+const sortedTodoByDone = computed(()=> [...props.todo].sort((a, b) => {
     if (a.done === b.done) return 0;
     return a.done ? 1 : -1;
   })
-})
+)
 
 const emit = defineEmits(['return-updated-todo-list'])
 
@@ -64,10 +63,10 @@ const formCreateNew = reactive({
 })
 
 const deleteTodo = (_id: string) => {
-  emit('return-updated-todo-list', props.todo.filter(item => item._id !== _id))
+  emit('return-updated-todo-list', [...props.todo].filter(item => item._id !== _id))
 }
 
-const changeStausTodo = (todo: ITodo) => {
+const changeStausTodo = () => {
   emit('return-updated-todo-list', props.todo)
 }
 
