@@ -1,59 +1,42 @@
 <template>
   <div>
-    <div @click="isShowConfirmationModal = true">
+    <div @click="isShowConfirmationModalDeleteNotion = true">
       <slot />
     </div>
 
-    <el-dialog
-      v-model="isShowConfirmationModal"
-      title="Удаление заметки"
-      width="300"
-    >
-      <span>
-        Вы действительно хотите удалить заметку с именем:
-        <el-text class="mx-1">{{ notion.title }}</el-text>
-      </span>
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button
-            type="danger"
-            plain
-            @click="isShowConfirmationModal = false"
-          >
-            Отмена
-          </el-button>
-          <el-button
-            type="success"
-            plain
-            @click="deleteNotion"
-          >
-            Да, хочу
-          </el-button>
-        </div>
-      </template>
+
+    <el-dialog v-model="isShowConfirmationModalDeleteNotion" width="300px">
+      <ConfirmationModalContent
+        text="Действительно хотите удалить заметку?"
+        :data="notion"
+        @success="deleteNotion($event)"
+        @cancel="isShowConfirmationModalDeleteNotion = false"
+      />
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
+import { api } from '../api'
 import { ref } from 'vue'
 import { ElNotification } from 'element-plus'
 import type { INotion } from '../types/Notion'
-import { api } from '../api'
 
 const props = defineProps<{ notion: INotion }>()
 const emit = defineEmits(['callback-after-delete'])
 
-const isShowConfirmationModal = ref(false)
+const isShowConfirmationModalDeleteNotion = ref(false)
 
-const deleteNotion = async () => {
-  await api.deleteNotion(props.notion._id as string)
+const deleteNotion = async (notion:INotion) => {
+
+  await api.deleteNotion(notion._id)
 
   ElNotification({
     title: 'Успешно!',
     message: 'Заметка успешно удалена!',
+    type: 'success'
   })
-  isShowConfirmationModal.value = false
+  isShowConfirmationModalDeleteNotion.value = false
   emit('callback-after-delete')
 }
 </script>

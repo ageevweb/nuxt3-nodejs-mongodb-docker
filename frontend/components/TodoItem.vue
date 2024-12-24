@@ -19,7 +19,7 @@
         :icon="Check"
         circle
         :disabled="!editMode.newTitle.length"
-        @click="saveNewTodoTitle"
+        @click="isShowConfirmationModalEditTodo = true"
       />
       <el-button
         type="warning"
@@ -46,20 +46,41 @@
         circle
         @click="startEditMode"
       />
+
       <el-button
         type="danger"
         :icon="Delete"
         circle
-        @click="emit('delete-todo', todo._id)"
+        @click="isShowConfirmationModalDeleteTodo = true"
       />
+
+      <el-dialog v-model="isShowConfirmationModalDeleteTodo" width="300px">
+        <ConfirmationModalContent
+          text="Действительно хотите удалить этот пункт списка?"
+          :data="todo"
+          @success="deleteTodo($event)"
+          @cancel="isShowConfirmationModalDeleteTodo = false"
+        />
+      </el-dialog>
+
+      <el-dialog v-model="isShowConfirmationModalEditTodo" width="300px">
+        <ConfirmationModalContent
+          text="Действительно хотите изменить этот пункт списка?"
+          :data="todo"
+          @success="saveNewTodoTitle"
+          @cancel="isShowConfirmationModalEditTodo = false"
+        />
+      </el-dialog>
+
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, watch } from 'vue'
+import { reactive, watch, ref } from 'vue'
 import { Delete, Edit, Check, Close } from '@element-plus/icons-vue';
 import type { ITodo } from '../types/Notion'
+import ConfirmationModalContent from './ConfirmationModalContent'
 
 const props = defineProps<{
   todo: ITodo,
@@ -71,6 +92,9 @@ const emit = defineEmits([
   'change-staus-todo',
   'change-title-todo',
 ])
+
+const isShowConfirmationModalDeleteTodo = ref(false)
+const isShowConfirmationModalEditTodo = ref(false)
 
 const todo = ref({ ...props.todo }); // Создаем локальную копию объекта
 
@@ -100,6 +124,12 @@ const saveNewTodoTitle = () => {
   emit('change-title-todo', { ...props.todo, title: editMode.newTitle })
   editMode.switched = false
   editMode.newTitle = ''
+  isShowConfirmationModalEditTodo.value = false
+}
+
+const deleteTodo = (todo) => {
+  emit('delete-todo', todo._id)
+  isShowConfirmationModalDeleteTodo.value = false
 }
 
 </script>

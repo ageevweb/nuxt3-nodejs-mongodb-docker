@@ -28,14 +28,13 @@
 
     <TodoItem
       v-for="item in sortedTodoByDone"
-      :key="item._id"
+      :key="`${item._id+item.title}`"
       :todo="item"
       :handle="handle"
       @delete-todo="deleteTodo($event)"
       @change-staus-todo="changeStausTodo($event)"
       @change-title-todo="changeTitleTodo($event)"
     />
-
   </div>
 </template>
 
@@ -58,15 +57,13 @@ const sortedTodoByDone = computed(()=> [...props.todo].sort((a, b) => {
 
 const emit = defineEmits(['return-updated-todo-list'])
 
-const formCreateNew = reactive({
-  input: ''
-})
+const formCreateNew = reactive({ input: ''})
 
 const deleteTodo = (_id: string) => {
   emit('return-updated-todo-list', [...props.todo].filter(item => item._id !== _id))
 }
 
-const changeStausTodo = (todo) => {
+const changeStausTodo = (todo: ITodo) => {
   const todos = props.todo.filter(item => todo._id !== item._id)
 
   emit('return-updated-todo-list', [...todos, todo])
@@ -78,6 +75,7 @@ const createNewTodo = () => {
 }
 
 const changeTitleTodo = (todo: ITodo) => {
+  console.log(todo)
   emit('return-updated-todo-list', [...props.todo.filter(item => item._id !== todo._id), todo])
 }
 </script>

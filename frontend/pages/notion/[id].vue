@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <header>
       <el-button
         type="success"
@@ -34,7 +33,6 @@
         empty="Список ToDo пока пуст"
         @return-updated-todo-list="updatedTodoList($event)"
       />
-
     </div>
   </div>
 </template>
@@ -64,6 +62,7 @@ const getNotion = async () => {
 
 
 const updatedTodoList = (todo: ITodo[]) => {
+  console.log(todo)
   updateNotion({ title: notion.value?.title || 'Заголовок', todo })
 }
 
