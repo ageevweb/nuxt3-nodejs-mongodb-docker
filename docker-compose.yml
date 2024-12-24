@@ -25,17 +25,20 @@ services:
       - database
     networks:
       - app-network
-    command: npm run start
 
   database:
     image: mongo:6.0
     ports:
       - "27017:27017"
     volumes:
-      - ./database/data:/data/db
+      - mongodb-data:/data/db
     networks:
       - app-network
 
 networks:
   app-network:
-    driver: bridge
+
+volumes:
+  mongodb-data:
+
+
