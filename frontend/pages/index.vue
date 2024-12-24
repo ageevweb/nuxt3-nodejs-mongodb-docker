@@ -77,7 +77,6 @@ import CreateNotion from '../components/CreateNotion.vue';
 import DeleteNotion from '../components/DeleteNotion.vue';
 import TodoList from '../components/TodoList.vue';
 
-
 useHead({ title: 'ToDo | Список заметок' });
 
 const notionList = ref<INotion[]>([]  )

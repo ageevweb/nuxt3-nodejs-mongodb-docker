@@ -1,5 +1,6 @@
-import type { INotionResponce } from './types.ts'
+import type { INotionResponce } from './types.js'
 import apiClient from '@/api';
+
 
 export default async () => {
   const REQUEST_URL = `/notion-list`;
