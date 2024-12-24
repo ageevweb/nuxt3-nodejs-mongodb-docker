@@ -32,7 +32,7 @@
       :todo="item"
       :handle="handle"
       @delete-todo="deleteTodo($event)"
-      @change-staus-todo="changeStausTodo"
+      @change-staus-todo="changeStausTodo($event)"
       @change-title-todo="changeTitleTodo($event)"
     />
 
@@ -66,8 +66,10 @@ const deleteTodo = (_id: string) => {
   emit('return-updated-todo-list', [...props.todo].filter(item => item._id !== _id))
 }
 
-const changeStausTodo = () => {
-  emit('return-updated-todo-list', props.todo)
+const changeStausTodo = (todo) => {
+  const todos = props.todo.filter(item => todo._id !== item._id)
+
+  emit('return-updated-todo-list', [...todos, todo])
 }
 
 const createNewTodo = () => {
