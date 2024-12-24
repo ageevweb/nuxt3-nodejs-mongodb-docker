@@ -1,11 +1,6 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+
 
 export default defineNuxtConfig({
-  // runtimeConfig: {
-  //   public: {
-  //     API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:4000', // Переменные окружения
-  //   },
-  // },
   app: {
     head: {
       link: [
@@ -13,19 +8,13 @@ export default defineNuxtConfig({
       ],
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
-      script: [
-        {
-          children: `window.env = { API_BASE_URL: "${process.env.API_BASE_URL}" }`,
-        },
-      ],
+      script: [{ children: `window.env = { API_BASE_URL: "${process.env.API_BASE_URL}" }`,}],
     },
   },
   vite: {
     css: {
       preprocessorOptions: {
-        scss: {
-          additionalData: '@use "@/assets/css/variables.scss" as *;',
-        },
+        scss: { additionalData: '@use "@/assets/css/variables.scss" as *;' },
       },
     },
   },
